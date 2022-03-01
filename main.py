@@ -41,17 +41,17 @@ class WindowManagerApp(MDApp):
         self.title = "nO2"
         self.icon = "Game/Assets/oak_tree.png"
 
-        try:
-            requests.get("https://no2project.herokuapp.com/backend_api/", timeout=10)
-            return Manager()
-        except (requests.ConnectionError, requests.Timeout) as exception:
+        #try:
+        requests.get("https://no2project.herokuapp.com/backend_api/", timeout=10)
+        return Manager()
+        """except (requests.ConnectionError, requests.Timeout) as exception:
             dialog = MDDialog(
                     title="No connection",
                     text="An unexpected error was encountered when trying to connect to the server.",
                     type="alert",
                     auto_dismiss=False
                 )
-            dialog.open()
+            dialog.open()"""
 
 
 if __name__ == "__main__":
