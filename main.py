@@ -38,11 +38,11 @@ class WindowManagerApp(MDApp):
     """The final application."""
     def build(self):
         self.theme_cls.theme_style = 'Dark'
-        self.title = "No2"
+        self.title = "nO2"
         self.icon = "Game/Assets/oak_tree.png"
 
         try:
-            requests.get("https://no2project.herokuapp.com/backend_api/", timeout=5)
+            requests.get("https://no2project.herokuapp.com/backend_api/", timeout=10)
             return Manager()
         except (requests.ConnectionError, requests.Timeout) as exception:
             dialog = MDDialog(
