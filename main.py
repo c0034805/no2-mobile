@@ -42,7 +42,7 @@ class WindowManagerApp(MDApp):
         self.icon = "Game/Assets/oak_tree.png"
 
         #try:
-        requests.get("https://no2project.herokuapp.com/backend_api/", timeout=10)
+        requests.get("https://no2project.herokuapp.com", timeout=10)
         return Manager()
         """except (requests.ConnectionError, requests.Timeout) as exception:
             dialog = MDDialog(
