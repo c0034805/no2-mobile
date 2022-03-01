@@ -24,7 +24,7 @@ def send_email_notification(link):
     # Gets all users from th database
     users = requests.get("https://no2project.herokuapp.com/backend_api/no2_backend/users").json()
     # Creates email server to send the notifications
-    server = smtplib.SMTP("smtp.gmail.com",587)
+    server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
     server.login(email_user,email_password)
     # Sends different email to each user in the database
@@ -37,7 +37,6 @@ def send_email_notification(link):
                 {link}"""
             server.sendmail(sent_from,user["email"],message)
     server.close()
-
 
 
 class Article(ButtonBehavior, GridLayout):
