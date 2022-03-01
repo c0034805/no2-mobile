@@ -1,0 +1,42 @@
+<PauseMenu>
+    name: "Pause Menu"
+
+    GridLayout:
+        cols: 1
+        MDRaisedButton:
+            text: "Back to game!"
+            font_size: 40
+            size_hint: 0.3, 0.3
+            on_release:
+                app.root.current = "Game"
+                root.manager.transition.direction = "up"
+
+        Label:
+            text: "Menu"
+            font_size: 100
+
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 3
+                Button:
+                    background_normal: "Game/Assets/news.png"
+                    background_down: "Game/Assets/news.png"
+                    on_release:
+                        app.root.current = "News Screen"
+                        root.manager.news_screen.disable_admin_functionality()
+                        root.manager.transition.direction = "right"
+
+                Button:
+                    background_normal: "Game/Assets/scoreboard_button_menu.png"
+                    background_down: "Game/Assets/scoreboard_button_menu.png"
+                    on_release:
+                        app.root.current = "Scoreboard"
+                        root.manager.transition.direction = "left"
+
+                Button:
+                    background_normal: "Game/Assets/logout.png"
+                    background_down: "Game/Assets/logout.png"
+                    on_release:
+                        app.root.transition = RiseInTransition(duration=0.2)
+                        app.root.current = "Account"

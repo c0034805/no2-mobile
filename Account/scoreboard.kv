@@ -1,0 +1,155 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+<Data>:
+    position: 'pos'
+    username: 'user'
+    score: 'scr'
+    date: 'dt'
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        pos_hint: {"top": 0.4}
+
+        padding: 20, 0
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle.png"
+            background_down: "Game/Assets/hollow_rectangle.png"
+            size_hint: 1, 2.5
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle.png"
+            background_down: "Game/Assets/hollow_rectangle.png"
+            size_hint: 1, 2.5
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle.png"
+            background_down: "Game/Assets/hollow_rectangle.png"
+            size_hint: 1, 2.5
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle.png"
+            background_down: "Game/Assets/hollow_rectangle.png"
+            size_hint: 1, 2.5
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        Label:
+            id: Position
+            text: root.position
+            font_size: 48
+
+        Label:
+            id: Username
+            text: root.username
+            font_size: 48
+
+        Label:
+            id: Score
+            text: root.score
+            font_size: 48
+
+        Label:
+            id: Date
+            text: root.date
+            font_size: 48
+
+
+<RV>:
+    rv: rv
+
+    size_hint_y: 0.715
+
+    RecycleView:
+        id: rv
+        viewclass: 'Data'
+        RecycleBoxLayout:
+            default_size: None, dp(20)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+            spacing: 60
+
+
+<Scoreboard>:
+    name: "Scoreboard"
+
+    canvas.before:
+        Rectangle:
+            pos: root.pos
+            size: root.size
+            source: "Game/Assets/scoreboard_background.png"
+
+    BoxLayout:
+        orientation: "horizontal"
+        padding: 20, 0
+        size_hint: 1, 0.115
+        pos_hint: {"top": 0.83}
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle_thick.png"
+            background_down: "Game/Assets/hollow_rectangle_thick.png"
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle_thick.png"
+            background_down: "Game/Assets/hollow_rectangle_thick.png"
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle_thick.png"
+            background_down: "Game/Assets/hollow_rectangle_thick.png"
+
+        Button:
+            background_normal: "Game/Assets/hollow_rectangle_thick.png"
+            background_down: "Game/Assets/hollow_rectangle_thick.png"
+
+    BoxLayout:
+        size_hint_y: 0.3
+        pos_hint: {"top": 1}
+        orientation: "vertical"
+
+        Label:
+            text: "Scoreboard"
+            font_size: 90
+            bold: True
+            underline: True
+            color: 1, 1, 0, 1
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Label:
+                text: "Pos."
+                font_size: 60
+                bold: True
+                color: 1, 1, 1, 1
+
+            Label:
+                text: "Username"
+                font_size: 60
+                bold: True
+                color: 1, 1, 1, 1
+
+            Label:
+                text: "Score"
+                font_size: 60
+                bold: True
+                color: 1, 1, 1, 1
+
+            Label:
+                text: "Date Achieved"
+                font_size: 60
+                bold: True
+                color: 1, 1, 1, 1
+
+    Button:
+        size_hint: 0.16, 0.1
+        pos_hint: {"top": 1, "left": 1}
+        text: "Exit"
+        background_color: 1, 0, 0, 1
+        on_release:
+            app.root.transition = SlideTransition()
+            app.root.transition.direction = "right"
+            app.root.current = root.manager.last_screen

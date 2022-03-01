@@ -1,0 +1,47 @@
+#:include NewsPage/news.kv
+#:include Account/scoreboard.kv
+#:include LoginRegister/loginregister.kv
+#:include AdminPage/admin.kv
+
+<Manager>
+    login: login
+    register: register
+    account_screen: account
+    scoreboard: scoreboard
+    game: game
+    pause_menu: pause
+    news_screen: news
+    admin_screen: admin
+    log_screen: logs
+
+    Login:
+        id: login
+        on_leave: root.last_screen = self.name
+    Register:
+        id: register
+        on_leave: root.last_screen = self.name
+    AccountScreen:
+        id: account
+        on_leave: root.last_screen = self.name
+    Scoreboard:
+        id: scoreboard
+        on_enter: self.refresh_scoreboard()
+        on_leave: root.last_screen = self.name
+    Game:
+        id: game
+        on_enter: self.resume()
+        on_leave:
+            self.pause()
+            root.last_screen = self.name
+    PauseMenu:
+        id: pause
+        on_leave: root.last_screen = self.name
+    NewsScreen:
+        id: news
+        on_leave: root.last_screen = self.name
+    AdminScreen:
+        id: admin
+        on_leave: root.last_screen = self.name
+    LogsScreen:
+        id: logs
+        on_leave: root.last_screen = self.name

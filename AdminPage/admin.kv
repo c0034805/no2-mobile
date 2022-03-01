@@ -1,0 +1,109 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+
+<AdminScreen>
+    name: "Admin"
+
+    GridLayout:
+
+        cols: 1
+
+        Label:
+            text: "Admin"
+            font_size: 100
+            bold: True
+            color: 1,1,1,1
+
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 5
+                Button:
+                    background_normal: "Game/Assets/news.png"
+                    background_down: "Game/Assets/news.png"
+                    on_release:
+                        app.root.transition = SlideTransition()
+                        app.root.current = "News Screen"
+                        root.manager.transition.direction = "right"
+                        root.manager.news_screen.enable_admin_functionality()
+
+                Button:
+                    background_normal: "Game/Assets/log.png"
+                    background_down: "Game/Assets/log.png"
+                    on_release:
+                        app.root.transition = SlideTransition()
+                        app.root.current = "Logs"
+                        root.manager.transition.direction = "left"
+
+                Button:
+                    background_normal: "Game/Assets/scoreboard_button_menu.png"
+                    background_down: "Game/Assets/scoreboard_button_menu.png"
+                    on_release:
+                        app.root.transition = SlideTransition()
+                        app.root.transition.direction = "left"
+                        app.root.current = "Scoreboard"
+
+                Button:
+                    background_normal: "Game/Assets/logout.png"
+                    background_down: "Game/Assets/logout.png"
+                    on_release:
+                        app.root.account_screen.sign_out()
+                        app.root.transition = FadeTransition(duration=0.5)
+                        app.root.current = "Login"
+
+
+<Entry>:
+    username: 'user'
+    time_occurred: 'time'
+    ip_address: 'ip'
+    warning_desc: 'warning'
+    orientation: 'horizontal'
+    Label:
+        size_hint_x: 0.2
+        text: root.username
+        font_size: 20
+        padding:20,0
+    Label:
+        size_hint_x: 0.2
+        text: root.time_occurred
+        font_size: 20
+    Label:
+        text: root.warning_desc
+        font_size: 20
+    Label:
+        size_hint_x: 0.25
+        text: root.ip_address
+        font_size: 20
+
+<Log>
+    viewclass: 'Entry'
+    RecycleBoxLayout:
+        default_size: None, dp(56)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<LogsScreen>
+    name: "Logs"
+    log: log
+    on_enter: log.refresh_log()
+    BoxLayout:
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y:0.2
+            Label:
+                text:"Logs"
+                font_size: "72sp"
+                halign:"center"
+                valign:"top"
+                text_size: self.size
+            Button:
+                text:"Exit"
+                size_hint_x:0.25
+                on_release:
+                    app.root.current = "Admin"
+                    root.manager.transition.direction = "right"
+        Log:
+            id: log

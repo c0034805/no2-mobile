@@ -1,0 +1,100 @@
+#:include Game/maingame.kv
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+
+<AccountScreen>
+    name: "Account"
+
+    MDCard:
+        orientation: 'vertical'
+
+        padding: 50, 120
+
+        MDLabel:
+            text: "Username: " + str(root.username)
+            font_size: 48
+
+        MDLabel:
+            text: "High score: " + str(root.high_score)
+            font_size: 48
+
+        MDLabel:
+            text: "Most days lasted: " + str(root.most_days)
+            font_size: 48
+
+        MDLabel:
+            text: "Previous score: " + str(root.previous_score)
+            font_size: 48
+
+        MDLabel:
+            text: "Days lasted in the previous game: " + str(root.previous_days)
+            font_size: 48
+
+        BoxLayout:
+            orientation: "horizontal"
+            pos_hint:{"left": 1}
+            size_hint_x: 0.41
+
+            Label:
+                text: "Allow email notifications: "
+                font_size: 48
+                pos_hint:{"left": 1}
+
+            Switch:
+                active: root.emails
+                on_touch_down: root.switch_emails()
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            pos_hint:{"left": 1}
+            size_hint_x: 0.41
+
+            Label:
+                text: "Allow email notifications: "
+                font_size: 25
+                pos_hint:{"left": 1}
+
+            Switch:
+                active: root.emails
+                on_touch_down: root.switch_emails()
+
+
+    FloatLayout:
+        MDLabel:
+            text: "Account"
+            pos_hint: {"top": 1.4, "right": 1.03}
+            font_size: 90
+            bold: True
+            underline: True
+
+        MDRaisedButton:
+            text: "Sign Out"
+            size_hint: 0.2, 0.1
+            pos_hint: {'left': 1, 'bottom': 1}
+            md_bg_color: 1, 0.2, 0.2, 1
+            on_release:
+                root.sign_out()
+                app.root.transition = FadeTransition(duration=0.5)
+                app.root.current = "Login"
+
+        MDRaisedButton:
+            text: "Play!"
+            size_hint: 0.2, 0.1
+            pos_hint: {'right': 1, 'bottom': 1}
+            md_bg_color: 0.2, 1, 0.2, 1
+            on_release:
+                app.root.transition = RiseInTransition(duration=0.2)
+                app.root.current = "Game"
+
+        Button:
+            size_hint: 0.2, 0.6
+            pos_hint: {'right': 1, 'top': 1}
+            background_normal: "Game/Assets/scoreboard_button_account_page.png"
+            background_down: "Game/Assets/scoreboard_button_account_page.png"
+            on_release:
+                app.root.transition = SlideTransition()
+                app.root.transition.direction = "left"
+                app.root.current = "Scoreboard"

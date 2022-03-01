@@ -1,0 +1,173 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:include Account/account.kv
+
+
+
+<Register>:
+    name: "Register"
+
+    email: email
+    username: username
+    password: password
+    confirm_password: confirm_password
+    email_warning: email_warning
+    username_warning: username_warning
+    password_warning: password_warning
+    confirm_password_warning: confirm_password_warning
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 30
+
+        Label:
+            text: "Register"
+            font_size: 60
+            size_hint_y:0.15
+            bold: True
+
+        BoxLayout:
+            orientation: "vertical"
+
+            MDTextField:
+                id: email
+                hint_text: "Email Address..."
+                multiline: False
+                icon_right: "account-details"
+                color_mode: 'custom'
+                line_color_focus: 1, 1, 1, 1
+                icon_right: 'email'
+
+            Label:
+                id: email_warning
+                text: ""
+                text_size: self.size
+                valign: "bottom"
+                color: (1, 0, 0, 1)
+
+            MDTextField:
+                id: username
+                hint_text: "Username..."
+                icon_right: 'account'
+
+            Label:
+                id: username_warning
+                text: ""
+                text_size: self.size
+                valign: "bottom"
+                color: (1, 0, 0, 1)
+
+            MDTextField:
+                id: password
+                hint_text: "Password..."
+                password: True
+                password_mask: "*"
+                multiline: False
+                icon_right: 'key-variant'
+
+            Label:
+                id: password_warning
+                text: ""
+                text_size: self.size
+                valign: "bottom"
+                color: (1, 0, 0, 1)
+
+            MDTextField:
+                id: confirm_password
+                hint_text: "Confirm Password..."
+                helper_text: "Both password fields must be equal."
+                helper_text_mode: "on_error"
+                password: True
+                password_mask: "*"
+                multiline: False
+                icon_right: 'key-variant'
+
+            Label:
+                id: confirm_password_warning
+                text: ""
+                text_size: self.size
+                valign: "bottom"
+                color: (1, 0, 0, 1)
+
+            MDRoundFlatButton:
+                text: "Register"
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    root.register()
+
+    MDRaisedButton:
+        text: "Back to login"
+        size_hint: 0.2, 0.17
+        pos_hint: {"top": 1, "left": 1}
+        md_bg_color: 1, 0.2, 0.2, 1
+        on_release:
+            app.root.transition = SlideTransition()
+            app.root.transition.direction = "right"
+            app.root.current = "Login"
+
+
+
+<Login>:
+    name: "Login"
+
+    username: username
+    password: password
+
+    BoxLayout:
+        orientation: 'vertical'
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: 0.7, 0.6
+        spacing: 10
+        padding: 10
+
+        Label:
+            text: "Login"
+            font_size: 70
+            bold: True
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 30
+
+            MDTextFieldRound:
+                id: username
+                hint_text: "Username..."
+                multiline: False
+                color_mode: 'custom'
+                line_color_focus: 1,1,1,1
+                icon_right: 'account'
+
+            MDTextFieldRound:
+                id: password
+                hint_text: "Password..."
+                password: True
+                password_mask: "*"
+                multiline: False
+                icon_right: 'key-variant'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing : 10
+
+                MDRoundFlatButton:
+                    text: "Register"
+                    size_hint: 0.1, 0.7
+                    pos_hint: {"left": 1}
+                    on_release:
+                        app.root.transition = SlideTransition()
+                        app.root.transition.direction = "left"
+                        app.root.current = "Register"
+
+                MDRoundFlatButton:
+                    text: "Login"
+                    size_hint: 0.1, 0.7
+                    pos_hint: {"right": 1}
+                    on_release:
+                        root.login()
+
+    MDRaisedButton:
+        text: "Exit App"
+        size_hint: 0.15, 0.1
+        pos_hint: {"top": 1, "left": 1}
+        md_bg_color: 1, 0.2, 0.2, 1
+        on_release: root.exit_app()

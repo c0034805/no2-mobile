@@ -1,0 +1,135 @@
+<Article>
+    link: self.link
+    title: self.title
+    desc: self.desc
+    img: self.img
+
+    cols: 2
+    row_force_default: True
+    row_default_height: 300
+
+    on_touch_down: self.on_click(args[1])
+
+    AsyncImage:
+        source: root.img
+        padding: 10,0
+        size_hint_x: 0.3
+
+    GridLayout:
+        rows: 2
+        col_force_default: True
+        col_default_width: app.root.width*0.7
+
+        Label:
+            text: root.title
+            font_size: '25sp'
+            halign: "left"
+            valign: "top"
+            text_size: app.root.width*0.7, 100
+
+        Label:
+            text: root.desc
+            font_size: '18sp'
+            valign: "top"
+            halign: "left"
+            text_size: app.root.width*0.7, 200
+
+<ArticleList>
+    cols: 1
+    spacing: 350
+    size_hint_y: None
+    height: self.minimum_height
+
+<AdminArticlePopup>
+    id: admin_popup
+
+    article: self.article
+    title: "Remove Article?"
+
+    size_hint: 0.5, None
+    size: 0, 100
+
+    BoxLayout:
+        Button:
+            text: "Open Article"
+            on_press: root.article.open_link()
+
+        Button:
+            text: "Remove Article"
+            on_press: root.remove_article()
+
+        Button:
+            text: "Close"
+            on_press: admin_popup.dismiss()
+
+<AddArticlePopup>
+    id: article_popup
+
+    link_text: link_input
+    message: message
+    title: "Add Article"
+
+    size_hint: 0.5, None
+    size: 0, 180
+
+    BoxLayout:
+        orientation: "vertical"
+
+        TextInput:
+            id: link_input
+            hint_text:"Enter URL for News Article"
+            size_hint: 1, None
+            size: 0,30
+            scroll_x: 1
+
+        Label:
+            id: message
+            text: ""
+            size_hint: 1, None
+            size: 0, 30
+            text_size: self.size
+            padding: 0, 10
+            halign: "left"
+
+        BoxLayout:
+            size_hint: 1,None
+            size: 0, 50
+
+            Button:
+                text: "Add Article"
+                on_press: article_popup.add_article()
+
+            Button:
+                text: "Close"
+                on_press: article_popup.dismiss()
+
+<NewsScreen>:
+    article_list: articles
+    add_article_button: add_article
+    name: "News Screen"
+    on_enter: self.load_screen()
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint_y: 0.25
+            Label:
+                text: "News Feed"
+                font_size: "72sp"
+            BoxLayout:
+                Button:
+                    id: add_article
+                    text: "Add Article"
+                    font_size: "20sp"
+                    background_color: 1, 0, 0, 1
+                    on_press: root.add_article_popup()
+                Button:
+                    text: "Exit"
+                    font_size: "20sp"
+                    background_color: 1, 0, 0, 1
+                    on_release:
+                        app.root.current = root.manager.last_screen
+                        root.manager.transition.direction = "left"
+        ScrollView:
+            size_hint: 1, 0.75
+            ArticleList:
+                id: articles

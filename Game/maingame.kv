@@ -1,0 +1,252 @@
+#:include Game/PauseMenu/pausemenu.kv
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+<Background>:
+    colour_percentage: 0.001
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: (root.colour_percentage - 0.5) * 2, 1 - (root.colour_percentage - 0.5) * 2 + 0.42, 1 - (root.colour_percentage - 0.5) * 2, 1
+
+            Rectangle:
+                size: root.size
+                pos: root.pos
+
+
+# Bar borders
+<Borders>:
+    FloatLayout:
+
+
+
+# Bar icons
+<Icons>:
+    FloatLayout:
+        # Oxygen bar
+        Image:
+            source: "Game/Assets/oxygen_bubble.png"
+            pos_hint: {"right": 0.55, "top": 1.405}
+
+        # CO2 bar
+        Image:
+            source: "Game/Assets/co2_cloud.png"
+            pos_hint: {"right": 0.91, "top": 1.405}
+
+
+# Oxygen bar mechanism
+<Oxygen>:
+    oxygen_percentage: 0.0
+    oxygen_value: 0
+    oxygen_cap: 100
+
+    pos_hint: {"right": 0.32,  "top": 0.493}
+    size_hint: 0.272, 0.054
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+
+            RoundedRectangle:
+                radius: [(5,5),(5,5),(5,5),(5,5)]
+                pos: root.x-5,root.y-5
+                size: root.width+10, root.height+10
+
+            Color:
+                rgba: (0.001 - 0.5) * 2, 1 - (0.001 - 0.5) * 2 + 0.42, 1 - (0.001 - 0.5) * 2, 1
+
+            Rectangle:
+                pos: root.pos
+                size: root.width, root.height
+
+            Color:
+                rgba: 1, 1, 1, 1
+
+            Rectangle:
+                pos: root.pos
+                size: root.oxygen_percentage*root.width, root.height
+
+        Button:
+            background_color: 0, 0, 0, 0
+            pos: root.pos
+            size: root.size
+            on_press: root.oxygen_click()
+
+        Label:
+            text: str(round(root.oxygen_value, 1)) + "/" + str(root.oxygen_cap)
+            font_size: 40
+            bold: True
+            color: 1, 1, 0, 1
+            pos: root.x, root.y + 1
+
+
+# CO2 bar mechanism
+<CO2>:
+    co2_percentage: 0
+    co2_value: 0
+    co2_cap: 100
+
+    pos_hint: {"right": 0.5, "top": 0.493}
+    size_hint: 0.272, 0.054
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 1
+
+            RoundedRectangle:
+                radius: [(5,5),(5,5),(5,5),(5,5)]
+                pos: root.x-5,root.y-5
+                size: root.width+10, root.height+10
+
+            Color:
+                rgba: (0.001 - 0.5) * 2, 1 - (0.001 - 0.5) * 2 + 0.42, 1 - (0.001 - 0.5) * 2, 1
+
+            Rectangle:
+                pos: root.pos
+                size: root.width, root.height
+
+            Color:
+                rgba: 0, 0, 0, 1
+
+            Rectangle:
+                pos: root.pos
+                size: root.co2_percentage*root.width, root.height
+
+        Label:
+            text: str(round(root.co2_value, 1)) + "/" + str(root.co2_cap)
+            font_size: 40
+            bold: True
+            color: 1, 1, 0, 1
+            pos: root.x, root.y + 1
+
+
+# Temperature display
+<Temperature>:
+    temperature: 25.0
+
+    size_hint: 1.63, 1.7
+
+    FloatLayout:
+        Image:
+            source: "Game/Assets/sun.png"
+
+        Label:
+            text: str(root.temperature) + "°C"
+            font_size: 55
+            bold: True
+            color: 1, 1, 1, 1
+            pos: -2, 10
+
+
+
+
+# Day counter display
+<Day>:
+    days: 1
+
+    size_hint: 0.2, 1.64
+
+    FloatLayout:
+        Label:
+            text: "Day: " + str(root.days)
+            font_size: 55
+            bold: True
+            color: 1, 1, 0, 1
+
+
+# Score Display
+<Score>:
+    score: 0
+
+    size_hint: 0.98, 1.64
+
+    FloatLayout:
+        Label:
+            text: "Score: " + str(root.score)
+            font_size: 55
+            bold: True
+            color: 1, 1, 0, 1
+
+
+<TileGrid>:
+    grid: grid
+    trees: trees
+    production: production
+    tiles: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3]
+    tree_production: []
+
+    size_hint: 0.9999, 0.709
+
+    FloatLayout:
+        GridLayout:
+            id: grid
+            rows: 4
+            cols: 14
+
+        GridLayout:
+            id: trees
+            pos_hint: {"top": 1.07}
+            rows: 4
+            cols: 14
+
+        GridLayout:
+            id: production
+            pos_hint: {"right": 1.0005}
+            spacing: 45, 100
+            padding: 20, 40
+            rows: 4
+            cols: 14
+
+
+<Game>:
+    name: "Game"
+
+
+<PauseButton>
+    name: "Pause Button"
+    FloatLayout:
+        Button:
+            background_normal: 'Game/Assets/pause_button.png'
+            background_down: 'Game/Assets/pause_button_pressed.png'
+            size_hint: 0.1, 0.18
+            pos_hint: {"top": 1, "right": 1}
+
+            on_release:
+                app.root.game.manager.transition = SlideTransition()
+                app.root.current = "Pause Menu"
+                root.game.manager.transition.direction = "down"
+
+
+<GameOverPopup>:
+    size_hint: 0.5, 0.5
+    title: ""
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Game Over!"
+            font_size: 60
+
+        Label:
+            text: "You may have lost the game but\nit's still not to late beat climate change"
+            halign: "center"
+            font_size: 30
+
+        Label:
+            text: "You may have lost the game but\nit's still not to late to beat climate change"
+            halign:  "center"
+            font_size: 20
+
+        Button:
+            size_hint_y: 0.3
+            text: "Return to account page"
+            on_release:
+                app.root.transition = NoTransition()
+                app.root.current = "Account"
+                root.dismiss()
+                root.game.reset_game()
