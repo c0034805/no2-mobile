@@ -47,21 +47,6 @@
                 on_touch_down: root.switch_emails()
 
 
-        BoxLayout:
-            orientation: "horizontal"
-            pos_hint:{"left": 1}
-            size_hint_x: 0.41
-
-            Label:
-                text: "Allow email notifications: "
-                font_size: 25
-                pos_hint:{"left": 1}
-
-            Switch:
-                active: root.emails
-                on_touch_down: root.switch_emails()
-
-
     FloatLayout:
         MDLabel:
             text: "Account"
