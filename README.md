@@ -1,6 +1,6 @@
 # nO<sub>2</sub>
 
-To run this application, run the WindowManager.py file,
+To run this application, run the main.py file,
 located in the root directory.
 
 Alternatively, run nO2.exe on desktop or nO2.apk on an android
